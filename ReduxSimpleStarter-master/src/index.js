@@ -1,5 +1,8 @@
+'use strict';
+
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import SearchBar from './components/search_bar';
 
 const API_KEY = 'AIzaSyCieOvskTOPX3SJ6XMrGxWPlou_NcQzWCc';
 
@@ -19,7 +22,13 @@ ReactDOM.render(
   , document.querySelector('.container'));*/
 
 const App = () => {
-  return <div>Hi !</div>
+  return (
+    <div>
+      <h2>React!</h2>
+      <SearchBar />
+
+    </div>
+)
 }
 
 ReactDOM.render(
