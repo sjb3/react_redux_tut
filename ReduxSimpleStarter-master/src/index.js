@@ -3,32 +3,33 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
-
+import VideoList from './components/video_list';
+import YTSearch from 'youtube-api-search';
 const API_KEY = 'AIzaSyCieOvskTOPX3SJ6XMrGxWPlou_NcQzWCc';
 
-/*
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+class App extends Component{
 
-import App from './components/app';
-import reducers from './reducers';
+  constructor(props){
+    super(props);
+    this.state = {videos: []};
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+    YTSearch({key: API_KEY, term: 'muscle'},  (videos)=>{
+      this.setState({videos});
+      // if the key and value have same name, u can put only one of them: this.setState = {videos: videos};
+    });
+  }
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('.container'));*/
-
-const App = () => {
-  return (
+  render(){
+    return(
     <div>
       <h2>React!</h2>
-      <SearchBar />
+        <SearchBar />
+        {/*from parent to child*/}
+        <VideoList videos={this.state.videos}/>
 
     </div>
-)
+    );
+  }
 }
 
 ReactDOM.render(
