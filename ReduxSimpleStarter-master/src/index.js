@@ -13,7 +13,7 @@ class App extends Component{
     super(props);
     this.state = {videos: []};
 
-    YTSearch({key: API_KEY, term: 'muscle'},  (videos)=>{
+    YTSearch({key: API_KEY, term: 'etro'},  (videos)=>{
       this.setState({videos});
       // if the key and value have same name, u can put only one of them: this.setState = {videos: videos};
     });
@@ -22,7 +22,7 @@ class App extends Component{
   render(){
     return(
     <div>
-      <h2>React!</h2>
+      <h2>PARTY!</h2>
         <SearchBar />
         {/*from parent to child*/}
         <VideoList videos={this.state.videos}/>
