@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
@@ -32,6 +33,7 @@ class App extends Component{
   }
 
   render(){
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 500);
     return(
     <div className="index-div">
 
