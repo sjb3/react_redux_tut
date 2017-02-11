@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
@@ -12,27 +13,34 @@ class App extends Component{
 
   constructor(props){
     super(props);
+
     this.state = {
       videos: [],
       selectedVideo: null,
   };
+    this.videoSearch('yoga');
+  }
 
-    YTSearch({key: API_KEY, term: 'yoga'},  (videos)=>{
+  videoSearch(term){
+    YTSearch({key: API_KEY, term: term},  (videos)=>{
       this.setState({
         videos: videos,
         selectedVideo: videos[0]
       });
       // if the key and value have same name, u can put only one of them: this.setState = {videos: videos};
     });
+
   }
 
   render(){
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 500);
     return(
     <div className="index-div">
-      <h1 className="yoga-title">YO-GA!</h1>
-        <SearchBar />
+
+        <h1 className="yoga-title">Search YouTube!</h1>
+        <SearchBar onSearchTermChange={(term) => this.videoSearch(term)} />
+
         <VideoDetail video={this.state.selectedVideo}/>
-        {/*from parent to child*/}
         <VideoList
         onVideoSelect={selectedVideo => this.setState({selectedVideo})}
         videos={this.state.videos}/>
