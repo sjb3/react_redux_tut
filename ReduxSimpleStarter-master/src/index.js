@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
 import YTSearch from 'youtube-api-search';
 const API_KEY = 'AIzaSyCieOvskTOPX3SJ6XMrGxWPlou_NcQzWCc';
 
@@ -11,21 +12,30 @@ class App extends Component{
 
   constructor(props){
     super(props);
-    this.state = {videos: []};
+    this.state = {
+      videos: [],
+      selectedVideo: null,
+  };
 
-    YTSearch({key: API_KEY, term: 'muscle'},  (videos)=>{
-      this.setState({videos});
+    YTSearch({key: API_KEY, term: 'yoga'},  (videos)=>{
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
       // if the key and value have same name, u can put only one of them: this.setState = {videos: videos};
     });
   }
 
   render(){
     return(
-    <div>
-      <h2>React!</h2>
+    <div className="index-div">
+      <h1 className="yoga-title">YO-GA!</h1>
         <SearchBar />
+        <VideoDetail video={this.state.selectedVideo}/>
         {/*from parent to child*/}
-        <VideoList videos={this.state.videos}/>
+        <VideoList
+        onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+        videos={this.state.videos}/>
 
     </div>
     );
