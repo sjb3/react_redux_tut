@@ -12,22 +12,30 @@ class App extends Component{
 
   constructor(props){
     super(props);
-    this.state = {videos: []};
+    this.state = {
+      videos: [],
+      selectedVideo: null,
+  };
 
-    YTSearch({key: API_KEY, term: 'pilates core'},  (videos)=>{
-      this.setState({videos});
+    YTSearch({key: API_KEY, term: 'yoga'},  (videos)=>{
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
       // if the key and value have same name, u can put only one of them: this.setState = {videos: videos};
     });
   }
 
   render(){
     return(
-    <div>
-      <h2>PARTY!</h2>
+    <div className="index-div">
+      <h1 className="yoga-title">YO-GA!</h1>
         <SearchBar />
-        <VideoDetail video={this.state.videos[0]}/>
+        <VideoDetail video={this.state.selectedVideo}/>
         {/*from parent to child*/}
-        <VideoList videos={this.state.videos}/>
+        <VideoList
+        onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+        videos={this.state.videos}/>
 
     </div>
     );
